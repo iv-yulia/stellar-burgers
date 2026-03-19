@@ -18,7 +18,7 @@ interface UserState {
   error: string | null;
 }
 
-const initialState: UserState = {
+export const initialState: UserState = {
   isAuthChecked: false,
   user: null,
   isLoading: false,
@@ -64,7 +64,7 @@ export const logoutUser = createAsyncThunk('user/logout', async () => {
   deleteCookie('accessToken');
 });
 
-const userSlice = createSlice({
+export const userSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {},
