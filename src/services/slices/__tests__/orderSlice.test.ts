@@ -6,30 +6,12 @@ import {
   ordersSlice
 } from '../orderSlice';
 import { TOrder } from '@utils-types';
+import { mockFeeds } from '../utils/mocks';
 
 const reducer = ordersSlice.reducer;
 
 describe('Тестирование ordersSlice', () => {
-  const mockOrders: TOrder[] = [
-    {
-      _id: '1',
-      status: 'done',
-      name: 'Burger 1',
-      createdAt: '2024-01-01T00:00:00.000Z',
-      updatedAt: '2024-01-01T00:00:00.000Z',
-      number: 12345,
-      ingredients: ['ingredient']
-    },
-    {
-      _id: '1',
-      status: 'pending',
-      name: 'Burger 2',
-      createdAt: '2024-01-01T00:00:00.000Z',
-      updatedAt: '2024-01-01T00:00:00.000Z',
-      number: 12346,
-      ingredients: ['ingredient', 'ingredient']
-    }
-  ];
+  const mockOrders: TOrder[] = mockFeeds;
 
   describe('Получить список заказов', () => {
     it('Установить Loading в true и сбросить значение ошибки в null, когда будет отправлен запрос', () => {

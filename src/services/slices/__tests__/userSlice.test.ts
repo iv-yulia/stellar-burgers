@@ -7,6 +7,7 @@ import {
   userSlice,
   initialState
 } from '../userSlice';
+import { TLoginData, TRegisterData } from '@api';
 
 const reducer = userSlice.reducer;
 
@@ -16,12 +17,20 @@ describe('Тестирование userSlice', () => {
     name: 'Test'
   };
 
+  const loginData: TLoginData = {
+    email: '',
+    password: ''
+  };
+
+  const registerData: TRegisterData = {
+    email: '',
+    password: '',
+    name: ''
+  };
+
   describe('Логирование User', () => {
     it('Установить Loading в true и сбросить значение ошибки в null, когда будет отправлен запрос', () => {
-      const state = reducer(
-        initialState,
-        loginUser.pending('', { email: '', password: '' })
-      );
+      const state = reducer(initialState, loginUser.pending('', loginData));
       expect(state.isLoading).toBe(true);
       expect(state.error).toBeNull();
     });
@@ -29,7 +38,7 @@ describe('Тестирование userSlice', () => {
     it('Установить данные user, ​​установить isLoading в false, когда запрос выполнен', () => {
       const state = reducer(
         { ...initialState, isAuthChecked: true },
-        loginUser.fulfilled(mockUser, '', { email: '', password: '' })
+        loginUser.fulfilled(mockUser, '', loginData)
       );
       expect(state.isLoading).toBe(false);
       expect(state.user).toEqual(mockUser);
@@ -40,10 +49,7 @@ describe('Тестирование userSlice', () => {
       const errorMessage = 'Failed to load';
       const state = reducer(
         { ...initialState },
-        loginUser.rejected(new Error(errorMessage), '', {
-          email: '',
-          password: ''
-        })
+        loginUser.rejected(new Error(errorMessage), '', loginData)
       );
 
       expect(state.isLoading).toBe(false);
@@ -55,7 +61,7 @@ describe('Тестирование userSlice', () => {
     it('Установить Loading в true и сбросить значение ошибки в null, когда будет отправлен запрос', () => {
       const state = reducer(
         initialState,
-        registerUser.pending('', { email: '', password: '', name: '' })
+        registerUser.pending('', registerData)
       );
       expect(state.isLoading).toBe(true);
       expect(state.error).toBeNull();
@@ -64,11 +70,7 @@ describe('Тестирование userSlice', () => {
     it('Установить данные user, ​​установить isLoading в false, когда запрос выполнен', () => {
       const state = reducer(
         { ...initialState, isAuthChecked: false },
-        registerUser.fulfilled(mockUser, '', {
-          email: '',
-          password: '',
-          name: ''
-        })
+        registerUser.fulfilled(mockUser, '', registerData)
       );
       expect(state.isLoading).toBe(false);
       expect(state.user).toEqual(mockUser);
@@ -79,11 +81,7 @@ describe('Тестирование userSlice', () => {
       const errorMessage = 'Failed to load';
       const state = reducer(
         { ...initialState },
-        registerUser.rejected(new Error(errorMessage), '', {
-          email: '',
-          password: '',
-          name: ''
-        })
+        registerUser.rejected(new Error(errorMessage), '', registerData)
       );
 
       expect(state.isLoading).toBe(false);
@@ -93,10 +91,7 @@ describe('Тестирование userSlice', () => {
 
   describe('Изменить User', () => {
     it('Установить Loading в true и сбросить значение ошибки в null, когда будет отправлен запрос', () => {
-      const state = reducer(
-        initialState,
-        updateUser.pending('', { email: '', password: '', name: '' })
-      );
+      const state = reducer(initialState, updateUser.pending('', registerData));
       expect(state.isLoading).toBe(true);
       expect(state.error).toBeNull();
     });
@@ -104,11 +99,7 @@ describe('Тестирование userSlice', () => {
     it('Установить данные user, ​​установить isLoading в false, когда запрос выполнен', () => {
       const state = reducer(
         { ...initialState, isAuthChecked: false },
-        updateUser.fulfilled(mockUser, '', {
-          email: '',
-          password: '',
-          name: ''
-        })
+        updateUser.fulfilled(mockUser, '', registerData)
       );
       expect(state.isLoading).toBe(false);
       expect(state.user).toEqual(mockUser);
@@ -118,11 +109,7 @@ describe('Тестирование userSlice', () => {
       const errorMessage = 'Failed to load';
       const state = reducer(
         { ...initialState },
-        updateUser.rejected(new Error(errorMessage), '', {
-          email: '',
-          password: '',
-          name: ''
-        })
+        updateUser.rejected(new Error(errorMessage), '', registerData)
       );
 
       expect(state.isLoading).toBe(false);

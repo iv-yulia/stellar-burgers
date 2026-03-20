@@ -1,30 +1,9 @@
 import { fetchFeeds, initialState, feedsSlice } from '../feedSlice';
-import { TOrder } from '@utils-types';
+import { mockFeeds } from '../utils/mocks';
 
 const reducer = feedsSlice.reducer;
 
 describe('Тестирование feedsSlice', () => {
-  const mockFeeds: TOrder[] = [
-    {
-      _id: '1',
-      status: 'done',
-      name: 'Burger 1',
-      createdAt: '2024-01-01T00:00:00.000Z',
-      updatedAt: '2024-01-01T00:00:00.000Z',
-      number: 12345,
-      ingredients: ['ingredient']
-    },
-    {
-      _id: '1',
-      status: 'pending',
-      name: 'Burger 2',
-      createdAt: '2024-01-01T00:00:00.000Z',
-      updatedAt: '2024-01-01T00:00:00.000Z',
-      number: 12346,
-      ingredients: ['ingredient', 'ingredient']
-    }
-  ];
-
   const mockFeedData = {
     orders: mockFeeds,
     total: 100,
