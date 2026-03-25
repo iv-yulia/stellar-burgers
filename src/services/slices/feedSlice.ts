@@ -1,6 +1,6 @@
 import { getFeedsApi } from '@api';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { TOrder } from '@utils-types';
+import { TOrder, TOrdersData } from '@utils-types';
 
 interface FeedState {
   orders: TOrder[];
@@ -10,7 +10,7 @@ interface FeedState {
   error: string | null;
 }
 
-const initialState: FeedState = {
+export const initialState: FeedState = {
   orders: [],
   total: 0,
   totalToday: 0,
@@ -18,12 +18,15 @@ const initialState: FeedState = {
   error: null
 };
 
-export const fetchFeeds = createAsyncThunk('feeds/all', async () => {
-  const response = await getFeedsApi();
-  return response;
-});
+export const fetchFeeds = createAsyncThunk<TOrdersData, void>(
+  'feeds/all',
+  async () => {
+    const response = await getFeedsApi();
+    return response;
+  }
+);
 
-const feedsSlice = createSlice({
+export const feedsSlice = createSlice({
   name: 'feeds',
   initialState,
   reducers: {},
@@ -43,9 +46,9 @@ const feedsSlice = createSlice({
         state.totalToday = action.payload.totalToday;
         state.error = null;
       })
-      .addCase(fetchFeeds.rejected, (state) => {
+      .addCase(fetchFeeds.rejected, (state, action) => {
         state.isLoading = false;
-        state.error = null;
+        state.error = action.error.message || 'Failed to load';
       });
   }
 });

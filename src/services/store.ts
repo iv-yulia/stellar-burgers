@@ -13,7 +13,7 @@ import userSlice from './slices/userSlice';
 
 //const rootReducer = () => {}; // Заменить на импорт настоящего редьюсера
 
-const rootReducer = combineReducers({
+export const rootReducer = combineReducers({
   ingredients: ingredientsSlice.reducer,
   builder: constructorSlice.reducer,
   feeds: feedsSlice.reducer,
